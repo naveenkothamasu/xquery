@@ -1,0 +1,27 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="Reviews">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Review" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Review_ID" type="xsd:string" />
+							<xsd:element name="Book_Title" type="xsd:string" />
+							<xsd:element name="Rating">
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:integer">
+										<xsd:pattern value="[1-5]"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+							<xsd:element name="Reviewer" type="xsd:string" />
+							<xsd:element name="Review_Description" type="xsd:string"
+								minOccurs="0" maxOccurs="1" />
+							<xsd:element name="Review_Date" type="xsd:date" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

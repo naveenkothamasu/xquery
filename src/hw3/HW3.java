@@ -9,10 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-import oracle.jdbc.OracleResultSet;
-import oracle.xdb.XMLType;
-
-
 public class HW3 {
 
 	public static Connection mainConnection = null;
@@ -45,28 +41,25 @@ public class HW3 {
 		}
 	}
 
-	public static void createTables() throws SQLException{
-		mainStatement.execute("CREATE TABLE BOOK ( BOOK_ID  NUMBER PRIMARY KEY, BOOK_DATA xmltype ) ");
-		mainStatement.execute("CREATE TABLE REVIEW ( REVIEW_ID  NUMBER PRIMARY KEY, REVIEW_DATA xmltype ) ");
+	public static void createTables() throws SQLException {
+		mainStatement
+				.execute("CREATE TABLE BOOK ( BOOK_ID  NUMBER PRIMARY KEY, BOOK_DATA xmltype ) ");
+		mainStatement
+				.execute("CREATE TABLE REVIEW ( REVIEW_ID  NUMBER PRIMARY KEY, REVIEW_DATA xmltype ) ");
 	}
-	public static void insertRecords() throws SQLException, FileNotFoundException{
-		Scanner s = new Scanner(new File("C:\\Users\\NaveenKumar\\Desktop\\585\\HW3\\DDLDML.sql"));
-		while(s.hasNext()){
-			mainStatement.executeQuery(" "+ s.nextLine()+ " ");
+
+	public static void insertRecords(String path) throws SQLException,
+			FileNotFoundException {
+		Scanner s = new Scanner(new File(path));
+		while (s.hasNext()) {
+			mainStatement.executeQuery(" " + s.nextLine() + " ");
 		}
 	}
-	public static void main(String[] args) throws SQLException, FileNotFoundException {
+
+	public static void main(String[] args) throws SQLException,
+			FileNotFoundException {
 		getConnectionToDB();
 		createTables();
-		insertRecords();
-		/*
-		ResultSet rs = mainStatement.executeQuery("SELECT * FROM BOOK");
-		OracleResultSet orset = (OracleResultSet) rs; 
-		
-		while(orset.next()){
-			XMLType poxml = (XMLType)orset.getObject(2); 
-			System.out.println(poxml.getStringVal());
-		}
-		*/
+		insertRecords(args[0]);
 	}
 }
